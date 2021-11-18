@@ -74,7 +74,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
             navBarView.topAnchor.constraint(equalTo: view.topAnchor),
             navBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navBarView.heightAnchor.constraint(equalToConstant: view.bounds.height / 7.5),
+            navBarView.heightAnchor.constraint(equalToConstant: view.bounds.height / 8.5),
             
             tableView.topAnchor.constraint(equalTo: navBarView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

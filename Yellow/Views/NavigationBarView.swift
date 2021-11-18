@@ -39,10 +39,10 @@ final class NavigationBarView: UIView {
         
         NSLayoutConstraint.activate([
             tabBarLogoImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            tabBarLogoImage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 10),
+            tabBarLogoImage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 15),
             
             tabBarDetailsButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            tabBarDetailsButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 10),
+            tabBarDetailsButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 15),
         ])
     }
     
