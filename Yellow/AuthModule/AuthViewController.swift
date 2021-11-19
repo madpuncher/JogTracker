@@ -68,9 +68,11 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         //LAYOUT
         addViews()
         setupConstraints()
+        setupNavBar()
         
         //Anotother
         addTargets()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -85,6 +87,9 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         signInButton.addTarget(self, action: #selector(signInButtonWasPressed), for: .touchUpInside)
     }
     
+    private func setupNavBar() {
+        navigationController?.isNavigationBarHidden = true
+    }
     //MARK: Setup UI
     
     private func addViews() {
