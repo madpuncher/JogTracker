@@ -1,29 +1,27 @@
 import UIKit
 
-//Можно было добавить Coordinator или Router, но в силу отсутствия большого флоy - решил не добавлять (optional)
-
 //Не создавал плажку с пустым списком, так как нет возможности получить пустой масив со своим токеном (optional)
 
 protocol Builder {
     
-    static func createAuthModule() -> UIViewController
-    static func createHomeModule(response: AuthResponseTokens) -> UIViewController
+    func createAuthModule(router: RouterProtocol) -> UIViewController
+    func createHomeModule(response: AuthResponseTokens, router: RouterProtocol) -> UIViewController
 }
 
 final class ModuleBuilder: Builder {
     
-    static func createAuthModule () -> UIViewController {
+    public func createAuthModule(router: RouterProtocol) -> UIViewController {
         let view = AuthViewController()
         let networkService = NetworkService()
-        let presenter = AuthPresenter(view: view, networkService: networkService)
+        let presenter = AuthPresenter(view: view, networkService: networkService, router: router)
         view.presenter = presenter
         return view
     }
 
-    static func createHomeModule(response: AuthResponseTokens) -> UIViewController {
+    public func createHomeModule(response: AuthResponseTokens, router: RouterProtocol) -> UIViewController {
         let view = HomeViewController()
         let networkService = NetworkService()
-        let presenter = HomePresenter(view: view, networkService: networkService, tokens: response)
+        let presenter = HomePresenter(view: view, networkService: networkService, tokens: response, router: router)
         view.presenter = presenter
         return view
     }

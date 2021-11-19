@@ -120,12 +120,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     
     // MARK: PROTOCOL FUNCTIONS
     
-    func presentHomeController(controller: UIViewController) {
-        
-        guard let homeVC = controller as? HomeViewController else { return }
-        homeVC.modalPresentationStyle = .fullScreen
-        present(homeVC, animated: true, completion: nil)
-    }
+   
         
     public func showAlert(title: String, message: String) {
         

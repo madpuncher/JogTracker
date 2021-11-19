@@ -18,7 +18,10 @@ protocol HomePresenterProtocol: AnyObject {
                        time: String,
                        date: String)
     
-    init(view: HomeViewProtocol, networkService: NetworkServiceProtocol, tokens: AuthResponseTokens)
+    init(view: HomeViewProtocol,
+         networkService: NetworkServiceProtocol,
+         tokens: AuthResponseTokens,
+         router: RouterProtocol)
     
 }
 
@@ -36,9 +39,12 @@ final class HomePresenter: HomePresenterProtocol {
     
     private weak var view: HomeViewProtocol?
     
-    required init(view: HomeViewProtocol, networkService: NetworkServiceProtocol, tokens: AuthResponseTokens) {
+    var router: RouterProtocol?
+    
+    required init(view: HomeViewProtocol, networkService: NetworkServiceProtocol, tokens: AuthResponseTokens, router: RouterProtocol) {
         self.view = view
         self.networkService = networkService
+        self.router = router
         self.tokenResponse = tokens
         
         jogsRequest()
