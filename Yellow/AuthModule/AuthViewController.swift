@@ -48,6 +48,14 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private let activity: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = #colorLiteral(red: 0.9161211848, green: 0.565367341, blue: 0.9756446481, alpha: 1)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.isHidden = true
+        return indicator
+    }()
     // MARK: CONSTANTS
     
     public var presenter: AuthPresenterProtocol!
@@ -85,6 +93,8 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         view.addSubview(authLogoImage)
         view.addSubview(signInButton)
         
+        signInButton.addSubview(activity)
+        
         view.backgroundColor = .white
     }
     
@@ -102,6 +112,9 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
             signInButton.topAnchor.constraint(equalTo: authLogoImage.bottomAnchor, constant: view.frame.width / 3),
             signInButton.widthAnchor.constraint(equalToConstant: view.bounds.width / 2.5),
             signInButton.heightAnchor.constraint(equalToConstant: .defailtButtonHeight),
+            
+            activity.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor),
+            activity.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor),
         ])
     }
     
@@ -132,6 +145,11 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     // MARK: TARGETS
     
     @objc private func signInButtonWasPressed() {
+        
+        signInButton.setTitle("", for: .normal)
+        activity.isHidden = false
+        activity.startAnimating()
+        
         presenter.authRequest()
     }
 }
