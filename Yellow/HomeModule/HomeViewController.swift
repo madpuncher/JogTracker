@@ -147,12 +147,22 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
         form.isHidden = false
         tableView.isHidden = true
         addJogButton.isHidden = true
+        showAnimation()
+        
+    }
+    private func showAnimation() {
+        form.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        form.alpha = 0.0
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.form.alpha = 1.0
+            self?.form.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-
+    
 }
 
 // MARK: TABLE VIEW DATA SOURCE / DELEGATE

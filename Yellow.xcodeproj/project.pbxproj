@@ -100,7 +100,6 @@
 				024B77912746956700ABB30E /* Views */,
 				024B776F27465E2700ABB30E /* Networking */,
 				024B77762746625C00ABB30E /* Models */,
-				024B778027467DF100ABB30E /* Errors */,
 				024B778327467E8500ABB30E /* Extensions */,
 				024B7762274658F300ABB30E /* Assets.xcassets */,
 				024B7764274658F300ABB30E /* LaunchScreen.storyboard */,
@@ -140,6 +139,7 @@
 				024B77772746626800ABB30E /* ApiConstants.swift */,
 				024B77942746998C00ABB30E /* JogsResponse.swift */,
 				024B777D27467D8A00ABB30E /* AuthBody */,
+				024B778027467DF100ABB30E /* Errors */,
 			);
 			path = Models;
 			sourceTree = "<group>";
