@@ -16,3 +16,8 @@ extension String {
       return String(describing: (seconds % 3600) / 60)
     }
 }
+
+extension String {
+    
+    static let dateFormatter = "dd-MM-yyyy"
+}

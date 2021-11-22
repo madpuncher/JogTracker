@@ -4,6 +4,13 @@ protocol CreateNewJogViewOutput {
     
     func closedForm()
     func saveFormAndPostRequest(distance: String, time: String, date: String)
+    
+    func saveChangesAndPutRequest(id: Int,
+                                  userId: String,
+                                  distance: String,
+                                  time: String,
+                                  date: String)
+    
     func showAlert()
     
 }
@@ -66,8 +73,6 @@ class CreateNewJog: UIView {
     private let dateTextField: UITextField = {
         let tf = UITextField()
         tf.backgroundColor = .white
-        tf.placeholder = "Заполнится автоматически"
-        tf.isUserInteractionEnabled = false
         tf.borderStyle = .roundedRect
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
@@ -84,6 +89,21 @@ class CreateNewJog: UIView {
         return button
     }()
     
+    private let datePicker: UIDatePicker = {
+        var picker = UIDatePicker()
+        picker.datePickerMode = .date
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            /// else блок для комментария
+            // По дефолту будет устанавливаться колесо
+        }
+        return picker
+    }()
+    
+    var viewForChange: Bool!
+    var currentJog: SomeJog!
+    
     var delegate: CreateNewJogViewOutput!
     
     override init(frame: CGRect) {
@@ -92,6 +112,8 @@ class CreateNewJog: UIView {
         addViews()
         setupConstaints()
         addTargets()
+        configureViews()
+        setupToolBar()
         
         backgroundColor = .systemGreen
     }
@@ -106,6 +128,10 @@ class CreateNewJog: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func configureViews() {
+        dateTextField.inputView = datePicker
+    }
+    
     private func addTargets() {
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         xmarkButton.addTarget(self, action: #selector(closedButtonPressed), for: .touchUpInside)
@@ -116,14 +142,6 @@ class CreateNewJog: UIView {
     }
     
     @objc private func saveButtonPressed() {
-        
-        let currentDateTime = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        
-        let date = formatter.string(from: currentDateTime)
-        
-        dateTextField.text = date
         
         guard
             let distance = distanceTextField.text,
@@ -136,13 +154,39 @@ class CreateNewJog: UIView {
                 return
             }
         
-        delegate.saveFormAndPostRequest(distance: distance, time: time, date: date)
+        guard
+            let id = currentJog.id,
+            let userId = currentJog.userId else {
+                return
+            }
+        
+        if viewForChange {
+            
+            delegate.saveChangesAndPutRequest(id: id,
+                                              userId: userId,
+                                              distance: distance,
+                                              time: time,
+                                              date: date)
+        } else {
+            delegate.saveFormAndPostRequest(distance: distance, time: time, date: date)
+        }
         
         distanceTextField.text = ""
         timeTextField.text = ""
         dateTextField.text = ""
         
         delegate.closedForm()
+    }
+    
+    @objc private func doneButtonDateInBarPressed() {
+        
+        if dateTextField.isFirstResponder {
+            dateFormatter()
+            self.endEditing(true)
+        } else {
+            self.endEditing(true)
+        }
+        
     }
     
     private func setupConstaints() {
@@ -189,6 +233,29 @@ class CreateNewJog: UIView {
         self.addSubview(dateTextField)
         self.addSubview(distanceTextField)
         self.addSubview(saveButton)
+    }
+    
+    // MARK: CUSTOM / HELP FUNCTIONS
+    
+    private func dateFormatter() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = .dateFormatter
+        dateTextField.text = formatter.string(from: datePicker.date)
+    }
+    
+    private func setupToolBar() {
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonDateInBarPressed))
+        
+        toolbar.setItems([flexibleSpace, doneButton], animated: true)
+        
+        dateTextField.inputAccessoryView = toolbar
+        distanceTextField.inputAccessoryView = toolbar
+        timeTextField.inputAccessoryView = toolbar
     }
     
 }

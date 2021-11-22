@@ -5,18 +5,23 @@ protocol HomeViewProtocol: AnyObject {
     func showAlert(title: String, message: String)
     
     func reloadData()
-
 }
 
 protocol HomePresenterProtocol: AnyObject {
     
-    var jogs: [someJog] { get set }
+    var jogs: [SomeJog] { get set }
             
     var tokenResponse: AuthResponseTokens { get set }
     
     func requestNewJog(distance: String,
                        time: String,
                        date: String)
+    
+    func changeJogRequest(id: String,
+                          userId: String,
+                          distance: String,
+                          time: String,
+                          date: String)
     
     init(view: HomeViewProtocol,
          networkService: NetworkServiceProtocol,
@@ -27,7 +32,7 @@ protocol HomePresenterProtocol: AnyObject {
 
 final class HomePresenter: HomePresenterProtocol {
     
-    public var jogs: [someJog] = [] {
+    public var jogs: [SomeJog] = [] {
         didSet {
             view?.reloadData()
         }
@@ -86,6 +91,30 @@ final class HomePresenter: HomePresenterProtocol {
                     self?.showAlert(title: .succefull, message: .succefullJog)
                 } else {
                     self?.showAlert(title: .errorTitle, message: .fetchJogError)
+                }
+            }
+        }
+    }
+    
+    func changeJogRequest(id: String,
+                          userId: String,
+                          distance: String,
+                          time: String,
+                          date: String) {
+        
+        networkService.putChangeJogRequest(accessToken: tokenResponse.accessToken,
+                                           id: id,
+                                           userId: userId,
+                                           tokenType: tokenResponse.tokenType,
+                                           distance: distance,
+                                           time: time,
+                                           date: date) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                if result {
+                    self?.showAlert(title: .succefull, message: .succefullChangeJog)
+                } else {
+                    self?.showAlert(title: .errorTitle, message: .changeJogError)
                 }
             }
         }

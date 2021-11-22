@@ -1,4 +1,4 @@
-struct someJog {
+struct SomeJog {
     let id: Int?
     let userId: String?
     let distance: Int?

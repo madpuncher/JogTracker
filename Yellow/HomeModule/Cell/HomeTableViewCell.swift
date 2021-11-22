@@ -84,7 +84,7 @@ final class HomeTableViewCell: UITableViewCell {
     }
     
   
-    public func configure(model: someJog) {
+    public func configure(model: SomeJog) {
         
         if model.distance != 0 && model.time != 0 {
             dateLabel.text = .returnFormattedDate(value: model.date)

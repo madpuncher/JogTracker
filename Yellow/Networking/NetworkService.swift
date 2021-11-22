@@ -6,7 +6,7 @@ protocol NetworkServiceProtocol {
     
     func getRequestForJogs(accessToken: String,
                            tokenType: String,
-                           completion: @escaping (Result<[someJog], Error>) -> Void)
+                           completion: @escaping (Result<[SomeJog], Error>) -> Void)
     
     func postNewJogRequest(accessToken: String,
                            tokenType: String,
@@ -14,6 +14,15 @@ protocol NetworkServiceProtocol {
                            time: String,
                            date: String,
                            completion: @escaping (Bool) -> Void)
+    
+    func putChangeJogRequest(accessToken: String,
+                             id: String,
+                             userId: String,
+                             tokenType: String,
+                             distance: String,
+                             time: String,
+                             date: String,
+                             completion: @escaping (Bool) -> Void)
 }
 
 final class NetworkService: NetworkServiceProtocol {
@@ -53,7 +62,7 @@ final class NetworkService: NetworkServiceProtocol {
     ///Requst for jogs
     public func getRequestForJogs(accessToken: String,
                                   tokenType: String,
-                                  completion: @escaping (Result<[someJog], Error>) -> Void) {
+                                  completion: @escaping (Result<[SomeJog], Error>) -> Void) {
         
         var urlComponents = URLComponents(string: ApiContants.jogsPath)
         
@@ -83,7 +92,7 @@ final class NetworkService: NetworkServiceProtocol {
                 let responseKeyJson = jsonResponse?["response"] as? [String: Any]
                 let jogsResponseKeys = responseKeyJson?["jogs"] as? [[String: Any]]
                 
-                var decodeItems: [someJog] = []
+                var decodeItems: [SomeJog] = []
                 
                 guard let jogs = jogsResponseKeys else {
                     completion(.failure(ErrorType.failedToGetJogs))
@@ -95,7 +104,7 @@ final class NetworkService: NetworkServiceProtocol {
                     if let id = jog["id"] as? Int, let userId = jog["user_id"] as? String, let distance = jog["distance"] as? Int,
                        let date = jog["date"] as? Int,
                        let time = jog["time"] as? Int {
-                        decodeItems.append(someJog(id: id, userId: userId, distance: distance, time: time, date: date))
+                        decodeItems.append(SomeJog(id: id, userId: userId, distance: distance, time: time, date: date))
                         
                     }
                 }
@@ -128,6 +137,44 @@ final class NetworkService: NetworkServiceProtocol {
         
         var request = URLRequest(url: finalURL)
         request.httpMethod = .postMethod
+        request.setValue("\(tokenType) \(accessToken)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard
+                let _ = data,
+                error == nil,
+                let response = response as? HTTPURLResponse,
+                response.statusCode >= 200 && response.statusCode < 300 else {
+                    completion(false)
+                    return
+                }
+            completion(true)
+        }
+        .resume()
+    }
+    
+    public func putChangeJogRequest(accessToken: String,
+                                    id: String,
+                                    userId: String,
+                                    tokenType: String,
+                                    distance: String,
+                                    time: String,
+                                    date: String,
+                                    completion: @escaping (Bool) -> Void) {
+        
+        var urlComponents = URLComponents(string: ApiContants.newJog)
+        
+        urlComponents?.queryItems = [URLQueryItem(name: "jog_id", value: id),
+                                     URLQueryItem(name: "user_id", value: userId),
+                                     URLQueryItem(name: "distance", value: distance),
+                                     URLQueryItem(name: "time", value: time),
+                                     URLQueryItem(name: "date", value: date)
+        ]
+        
+        guard let finalURL = urlComponents?.url else { return }
+        
+        var request = URLRequest(url: finalURL)
+        request.httpMethod = .putMethod
         request.setValue("\(tokenType) \(accessToken)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { data, response, error in

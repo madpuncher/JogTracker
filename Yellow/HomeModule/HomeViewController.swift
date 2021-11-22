@@ -104,7 +104,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
                 
-        view.addGestureRecognizer(tap)
+        form.addGestureRecognizer(tap)
     }
     
     // MARK: PROTOCOL FUNCTIONS
@@ -118,6 +118,10 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
     
     func saveFormAndPostRequest(distance: String, time: String, date: String) {
         presenter.requestNewJog(distance: distance, time: time, date: date)
+    }
+    
+    func saveChangesAndPutRequest(id: Int, userId: String, distance: String, time: String, date: String) {
+        presenter.changeJogRequest(id: "\(id)", userId: userId, distance: distance, time: time, date: date)
     }
     
     func showAlert() {
@@ -140,7 +144,9 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
         present(alert, animated: true, completion: nil)
     }
     
-    @objc private func buttonTapped() {
+    @objc private func buttonTapped(formForChanged: Bool = false) {
+        
+        form.viewForChange = formForChanged ? true : false
         form.isHidden = false
         tableView.isHidden = true
         addJogButton.isHidden = true
@@ -184,10 +190,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        buttonTapped(formForChanged: true)
+    
+        let jog = presenter.jogs[indexPath.row]
+    
+        form.currentJog = jog
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(view.frame.size.height / 5)
     }
-    
 }
