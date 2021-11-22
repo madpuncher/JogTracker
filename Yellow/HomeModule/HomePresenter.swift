@@ -113,6 +113,7 @@ final class HomePresenter: HomePresenterProtocol {
             DispatchQueue.main.async {
                 if result {
                     self?.showAlert(title: .succefull, message: .succefullChangeJog)
+                    self?.view?.reloadData()
                 } else {
                     self?.showAlert(title: .errorTitle, message: .changeJogError)
                 }
