@@ -81,11 +81,16 @@ final class NetworkService: NetworkServiceProtocol {
                                                                     options: JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>
                 
                 let responseKeyJson = jsonResponse?["response"] as? [String: Any]
-                let jogs = responseKeyJson?["jogs"] as? [[String: Any]]
+                let jogsResponseKeys = responseKeyJson?["jogs"] as? [[String: Any]]
                 
                 var decodeItems: [someJog] = []
                 
-                for jog in jogs! {
+                guard let jogs = jogsResponseKeys else {
+                    completion(.failure(ErrorType.failedToGetJogs))
+                    return
+                }
+                
+                for jog in jogs {
                     
                     if let id = jog["id"] as? Int, let userId = jog["user_id"] as? String, let distance = jog["distance"] as? Int,
                        let date = jog["date"] as? Int,

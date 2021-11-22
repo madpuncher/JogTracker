@@ -83,9 +83,9 @@ final class HomePresenter: HomePresenterProtocol {
             
             DispatchQueue.main.async {
                 if succefull {
-                    self?.showAlert(title: "Успешно", message: "Забег успешно загружён")
+                    self?.showAlert(title: .succefull, message: .succefullJog)
                 } else {
-                    self?.showAlert(title: .errorTitle, message: "Произошла ошибка во время загрузки")
+                    self?.showAlert(title: .errorTitle, message: .fetchJogError)
                 }
             }
         }

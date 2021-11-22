@@ -22,7 +22,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
     private let addJogButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(.addJogButtonIcon(), for: .normal)
+        button.setImage(UIImage(named: .addJogButtonIcon()), for: .normal)
         return button
     }()
     
@@ -121,7 +121,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
     }
     
     func showAlert() {
-        showAlert(title: "Ошибка", message: "Вы ввели не все данные")
+        showAlert(title: .errorTitle, message: .youPutBrokenData)
     }
     
     func reloadData() {
@@ -130,15 +130,12 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
     
     public func showAlert(title: String, message: String) {
         
-        let alert = UIAlertController(title: title,
-                                      message: message,
-                                      preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK",
-                                     style: .default,
-                                     handler: nil)
-        
-        alert.addAction(okAction)
+        let alert = AlertFactory.createAlert(with: .init(title: title,
+                                                         message: message,
+                                                         style: .alert,
+                                                         actions: [.init(title: "OK",
+                                                                         style: .default,
+                                                                         closure: nil)]))
         
         present(alert, animated: true, completion: nil)
     }
@@ -150,6 +147,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol, CreateNewJog
         showAnimation()
         
     }
+    
     private func showAnimation() {
         form.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         form.alpha = 0.0

@@ -4,21 +4,21 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     
     private let tabBarLogoImage: UIImageView = {
         let barImage = UIImageView()
-        barImage.image = .tabBarLogo()
+        barImage.image = UIImage(named: .tabBarLogo())
         barImage.translatesAutoresizingMaskIntoConstraints = false
         return barImage
     }()
     
     private let authLogoImage: UIImageView = {
         let barImage = UIImageView()
-        barImage.image = .authLogo()
+        barImage.image = UIImage(named: .authLogo())
         barImage.translatesAutoresizingMaskIntoConstraints = false
         return barImage
     }()
     
     private let tabBarDetailsButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(.detailsButtonIcon(), for: .normal)
+        button.setImage(UIImage(named: .detailsButtonIcon()), for: .normal)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -124,20 +124,15 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     }
     
     // MARK: PROTOCOL FUNCTIONS
-    
-   
-        
+       
     public func showAlert(title: String, message: String) {
         
-        let alert = UIAlertController(title: title,
-                                      message: message,
-                                      preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK",
-                                     style: .default,
-                                     handler: nil)
-        
-        alert.addAction(okAction)
+        let alert = AlertFactory.createAlert(with: .init(title: title,
+                                                         message: message,
+                                                         style: .alert,
+                                                         actions: [.init(title: "OK",
+                                                                         style: .default,
+                                                                         closure: nil)]))
         
         present(alert, animated: true, completion: nil)
     }

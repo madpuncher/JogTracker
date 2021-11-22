@@ -12,7 +12,7 @@ class CreateNewJog: UIView {
     
     private let xmarkButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(.xmarkgButtonIcon(), for: .normal)
+        button.setImage(UIImage(named: .xmarkgButtonIcon()), for: .normal)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

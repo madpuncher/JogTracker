@@ -4,14 +4,14 @@ final class NavigationBarView: UIView {
     
     private let tabBarLogoImage: UIImageView = {
         let barImage = UIImageView()
-        barImage.image = .tabBarLogo()
+        barImage.image = UIImage(named: .tabBarLogo())
         barImage.translatesAutoresizingMaskIntoConstraints = false
         return barImage
     }()
     
     private let tabBarDetailsButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(.detailsButtonIcon(), for: .normal)
+        button.setImage(UIImage(named: .detailsButtonIcon()), for: .normal)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

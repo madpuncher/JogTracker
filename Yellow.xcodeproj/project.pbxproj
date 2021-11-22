@@ -32,6 +32,7 @@
 		027CC7602746B1E00085A7B9 /* StringHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027CC75F2746B1E00085A7B9 /* StringHelpers.swift */; };
 		027CC7622746D6FB0085A7B9 /* CreateNewJog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027CC7612746D6FB0085A7B9 /* CreateNewJog.swift */; };
 		0288120F2747F93D00BB5F95 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0288120E2747F93D00BB5F95 /* Router.swift */; };
+		02F171E1274B920B00F09AF1 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F171E0274B920B00F09AF1 /* AlertFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		027CC75F2746B1E00085A7B9 /* StringHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelpers.swift; sourceTree = "<group>"; };
 		027CC7612746D6FB0085A7B9 /* CreateNewJog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJog.swift; sourceTree = "<group>"; };
 		0288120E2747F93D00BB5F95 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		02F171E0274B920B00F09AF1 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				024B7759274658EF00ABB30E /* AppDelegate.swift */,
+				02F171DF274B91EA00F09AF1 /* Factory */,
 				024B775B274658EF00ABB30E /* SceneDelegate.swift */,
 				024B777027465F4300ABB30E /* Assembly */,
 				024B77732746608800ABB30E /* AuthModule */,
@@ -204,6 +207,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		02F171DF274B91EA00F09AF1 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				02F171E0274B920B00F09AF1 /* AlertFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -279,6 +290,7 @@
 				027CC7602746B1E00085A7B9 /* StringHelpers.swift in Sources */,
 				024B775A274658EF00ABB30E /* AppDelegate.swift in Sources */,
 				024B776E2746590A00ABB30E /* NetworkService.swift in Sources */,
+				02F171E1274B920B00F09AF1 /* AlertFactory.swift in Sources */,
 				024B7789274681D800ABB30E /* Images.swift in Sources */,
 				024B77952746998C00ABB30E /* JogsResponse.swift in Sources */,
 				024B77982746A64D00ABB30E /* HomeTableViewCell.swift in Sources */,

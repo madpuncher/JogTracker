@@ -1,28 +1,28 @@
 import UIKit
 
-extension UIImage {
+extension String {
     
-    static func tabBarLogo() -> Self {
-        #imageLiteral(resourceName: "navBarLogo")
+    static func tabBarLogo() -> String {
+        return "navBarLogo"
     }
     
-    static func authLogo() -> Self {
-        #imageLiteral(resourceName: "authLogo")
+    static func authLogo() -> String {
+        return "authLogo"
     }
     
-    static func detailsButtonIcon() -> Self {
-        #imageLiteral(resourceName: "detailsButton")
+    static func detailsButtonIcon() -> String {
+        return "detailsButton"
     }
     
-    static func jogRunnerIcon() -> Self {
-        #imageLiteral(resourceName: "jogRunnerIcon")
+    static func jogRunnerIcon() -> String {
+        return "jogRunnerIcon"
     }
     
-    static func addJogButtonIcon() -> Self {
-        #imageLiteral(resourceName: "addJogButton")
+    static func addJogButtonIcon() -> String {
+        return "addJogButton"
     }
     
-    static func xmarkgButtonIcon() -> Self {
-        #imageLiteral(resourceName: "xmarkButton")
+    static func xmarkgButtonIcon() -> String {
+        return "xmarkButton"
     }
 }

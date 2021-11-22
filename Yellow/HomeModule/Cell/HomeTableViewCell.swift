@@ -4,7 +4,7 @@ final class HomeTableViewCell: UITableViewCell {
     
     private let jogIcon: UIImageView = {
         let jogIconImage = UIImageView()
-        jogIconImage.image = .jogRunnerIcon()
+        jogIconImage.image = UIImage(named: .jogRunnerIcon())
         jogIconImage.translatesAutoresizingMaskIntoConstraints = false
         return jogIconImage
     }()
