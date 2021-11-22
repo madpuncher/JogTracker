@@ -1,5 +1,5 @@
 # JogTracker
-
+# Important: If your application runs on the floor of the screen, this is due to version differences in the xcode. Check launch screen file name and change it if it's empty
 ## I used MVP as an architecture, because there is no big flow and long navigation in the application. There are no frameworks.
 
 <p float="left"> 
